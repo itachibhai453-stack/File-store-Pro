@@ -298,7 +298,7 @@ def is_user_subscribed(statuses):
     ) and bool(statuses)
 
 
-async def check_fsub(client, message, statuses):
+async def force_sub(client, message, statuses):
     # User is not subscribed to all channels
     buttons = []
     channels_message = f"{client.messages.get('FSUB', '')}\n\n"
