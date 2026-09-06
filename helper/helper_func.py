@@ -297,28 +297,45 @@ def is_user_subscribed(statuses):
         for status in statuses.values() if status is not None
     ) and bool(statuses)
 
+#===============================================================#
 
-async def force_sub(client, message, statuses):
-    # User is not subscribed to all channels
-    buttons = []
-    channels_message = f"{client.messages.get('FSUB', '')}\n\n"
+def force_sub(func):
+    """Decorator to enforce force subscription before executing a command."""
+    async def wrapper(client: Client, message: Message):
+        if not client.fsub_dict:
+            return await func(client, message)
 
-    for channel_id, (channel_name, channel_link, request, timer) in client.fsub_dict.items():
-        status = statuses.get(channel_id, None)
+        msg = await message.reply(
+            "<b>Please Wait...</b>"
+        )
+        
+        user_id = message.from_user.id
+        statuses = await check_subscription(client, user_id)
 
-        # Generate invite link if needed
-        if timer > 0:
-            expire_time = datetime.now() + timedelta(minutes=timer)
-            try:
-                invite = await client.create_chat_invite_link(
-                    chat_id=channel_id,
-                    expire_date=expire_time,
-                    creates_join_request=request
-                )
-                channel_link = invite.invite_link
-            except Exception as e:
-                client.LOGGER(__name__, client.name).warning(f"Error creating invite link for {channel_name}: {e}")
-                
+        if is_user_subscribed(statuses):
+            await msg.delete()
+            return await func(client, message)
+
+        # User is not subscribed to all channels
+        buttons = []
+        channels_message = f"{client.messages.get('FSUB', '')}\n\n"
+
+        for channel_id, (channel_name, channel_link, request, timer) in client.fsub_dict.items():
+            status = statuses.get(channel_id, None)
+
+            # Generate invite link if needed
+            if timer > 0:
+                expire_time = datetime.now() + timedelta(minutes=timer)
+                try:
+                    invite = await client.create_chat_invite_link(
+                        chat_id=channel_id,
+                        expire_date=expire_time,
+                        creates_join_request=request
+                    )
+                    channel_link = invite.invite_link
+                except Exception as e:
+                    client.LOGGER(__name__, client.name).warning(f"Error creating invite link for {channel_name}: {e}")
+
             # Add button based on user status
             if status not in {ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.OWNER}:
                 # Check if user has already submitted request for request channels
