@@ -297,30 +297,6 @@ def is_user_subscribed(statuses):
         for status in statuses.values() if status is not None
     ) and bool(statuses)
 
-#===============================================================#
-
-def force_sub(func):
-    """Decorator to enforce force subscription before executing a command."""
-    async def wrapper(client: Client, message: Message):
-        if not client.fsub_dict:
-            return await func(client, message)
-        photo = client.messages.get('SHORT', '')
-        if photo:
-            msg = await message.reply_photo(
-                caption="<b>ᴡᴀɪᴛ ᴀ sᴇᴄᴏɴᴅ.....</b>", 
-                photo=photo
-            )
-        else:
-            msg = await message.reply(
-                "<code><b>ᴡᴀɪᴛ ᴀ sᴇᴄᴏɴᴅ.....</b></code>"
-            )
-        user_id = message.from_user.id
-        statuses = await check_subscription(client, user_id)
-
-        if is_user_subscribed(statuses):
-            await msg.delete()
-            return await func(client, message)
-
         # User is not subscribed to all channels
         buttons = []
         channels_message = f"{client.messages.get('FSUB', '')}\n\n"
@@ -426,8 +402,8 @@ def convert_time(duration_seconds: int) -> str:
 #===============================================================#
 
 DEL_MSG = """<b>⚠️ Dᴜᴇ ᴛᴏ Cᴏᴘʏʀɪɢʜᴛ ɪssᴜᴇs....</b>
-<blockquote expandable>Yᴏᴜʀ ғɪʟᴇs ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ᴡɪᴛʜɪɴ <a href="https://t.me/{username}">{time}</a>. Sᴏ ᴘʟᴇᴀsᴇ
-ғᴏʀᴡᴀʀᴅ ᴛʜᴇᴍ ᴛᴏ ᴀɴʏ ᴏᴛʜᴇʀ ᴘʟᴀᴄᴇ ғᴏʀ ғᴜᴛᴜʀᴇ ᴀᴠᴀɪʟᴀʙɪʟɪᴛʏ.</blockquote>"""
+<b><blockquote expandable>Yᴏᴜʀ ғɪʟᴇs ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ᴡɪᴛʜɪɴ <a href="https://t.me/{username}">{time}</a>. Sᴏ ᴘʟᴇᴀsᴇ
+ғᴏʀᴡᴀʀᴅ ᴛʜᴇᴍ ᴛᴏ ᴀɴʏ ᴏᴛʜᴇʀ ᴘʟᴀᴄᴇ ғᴏʀ ғᴜᴛᴜʀᴇ ᴀᴠᴀɪʟᴀʙɪʟɪᴛʏ.</b></blockquote>"""
 
 #Function for provide auto delete notification message
 async def auto_del_notification(bot_username, msg, delay_time, transfer): 
@@ -491,19 +467,19 @@ async def batch_auto_del_notification(bot_username, messages, delay_time, transf
     try:
         if transfer_link:
             try:
-                name = "• ɢᴇᴛ ғɪʟᴇs •"
+                name = "ɢᴇᴛ ғɪʟᴇ ᴀɢᴀɪɴ!"
                 link = f"https://t.me/{bot_username}?start={transfer_link}"
-                button = [[InlineKeyboardButton(text=name, url=link), InlineKeyboardButton(text="ᴄʟᴏsᴇ •", callback_data="close")]]
+                button = [[InlineKeyboardButton(text=name, url=link)]]
                 
                 await notification_msg.edit_text(
-                    text=f"<b>›› Pʀᴇᴠɪᴏᴜs Mᴇssᴀɢᴇ ᴡᴀs Dᴇʟᴇᴛᴇᴅ\n\nIғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ɢᴇᴛ ᴛʜᴇ ғɪʟᴇs ᴀɢᴀɪɴ, ᴛʜᴇɴ ᴄʟɪᴄᴋ: <a href={link}>{name}</a> ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴇʟsᴇ ᴄʟᴏsᴇ ᴛʜɪs ᴍᴇssᴀɢᴇ.</b>",
+                    text=f"<b><blockquote>ʏᴏᴜʀ ᴠɪᴅᴇᴏ / ꜰɪʟᴇ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ !!</b></blockquote>\n\n<b><blockquote>ᴄʟɪᴄᴋ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴛᴏ ɢᴇᴛ ʏᴏᴜʀ ᴅᴇʟᴇᴛᴇᴅ ᴠɪᴅᴇᴏ / ꜰɪʟᴇ 👇.</blockquote></b>",
                     reply_markup=InlineKeyboardMarkup(button),
                     disable_web_page_preview=True
                 )
             except Exception as e:
-                await notification_msg.edit_text(f"<b>›› Pʀᴇᴠɪᴏᴜs Mᴇssᴀɢᴇ ᴡᴀs Dᴇʟᴇᴛᴇᴅ</b>")
+                await notification_msg.edit_text(f"<b><blockquote>ʏᴏᴜʀ ᴠɪᴅᴇᴏ / ꜰɪʟᴇ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ !!</b></blockquote>")
                 print(f"Error editing notification message: {e}")
         else:
-            await notification_msg.edit_text(f"<b>Pʀᴇᴠɪᴏᴜs Mᴇssᴀɢᴇ ᴡᴀs Dᴇʟᴇᴛᴇᴅ</b>")
+            await notification_msg.edit_text(f"<b><blockquote>ʏᴏᴜʀ ᴠɪᴅᴇᴏ / ꜰɪʟᴇ ɪꜱ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴅᴇʟᴇᴛᴇᴅ !!</b></blockquote>")
     except Exception as e:
         print(f"Error updating notification message: {e}")
