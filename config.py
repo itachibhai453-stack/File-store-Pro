@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 # Bot Configuration
 LOG_FILE_NAME = "bot.log"
 PORT = '5010'
-OWNER_ID = 7156099919
+OWNER_ID = 7653921320
 
 MSG_EFFECT = 5046509860389126442
 
@@ -24,7 +24,7 @@ DB_NAME = "lucifer123"
 
 FSUBS = [[-1002649539214, True, 10]] # Force Subscription Channels [channel_id, request_enabled, timer_in_minutes]
 # Database Channel (Primary)
-DB_CHANNEL =  -1003839222178  # just put channel id dont add ""
+DB_CHANNEL =  -1004463327962  # just put channel id dont add ""
 # Multiple Database Channels (can be set via bot settings)
 # DB_CHANNELS = {
 #     "-1002595092736": {"name": "Primary DB", "is_primary": True, "is_active": True},
@@ -33,7 +33,7 @@ DB_CHANNEL =  -1003839222178  # just put channel id dont add ""
 # Auto Delete Timer (seconds)
 AUTO_DEL = 300
 # Admin IDs
-ADMINS = [7156099919]
+ADMINS = [8808274917]
 # Bot Settings
 DISABLE_BTN = True
 PROTECT = False # For content protection stops message forwarding and copying from the bot and same goes for the screenshot
