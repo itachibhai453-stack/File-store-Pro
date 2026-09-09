@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 # Bot Configuration
 LOG_FILE_NAME = "bot.log"
 PORT = '5010'
-OWNER_ID = 
+OWNER_ID = 7653921320
 
 MSG_EFFECT = 5046509860389126442
 
@@ -14,9 +14,9 @@ SHORT_TUT = "https://t.me/ANIME_X_FLEX/19" # shortner tutorial link
 
 # Bot Configuration
 SESSION = "BotifyX-Botz"
-TOKEN = "" # Bot token
-API_ID = "" # API ID
-API_HASH = "" # API HASH
+TOKEN = "8631420046:AAEh19lY1D-NRLoyccZefcMVa3jbKdEiCKM" # Bot token
+API_ID = "15055049" # API ID
+API_HASH = "abe3f66fcd80c91e53009ba52c7b3a83" # API HASH
 WORKERS = 5
 
 DB_URI = "mongodb+srv://lucifer123:786780@cluster0.81jttdz.mongodb.net/?appName=Cluster0" # MongoDB URI
