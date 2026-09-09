@@ -15,8 +15,8 @@ SHORT_TUT = "https://t.me/ANIME_X_FLEX/19" # shortner tutorial link
 # Bot Configuration
 SESSION = "BotifyX-Botz"
 TOKEN = "" # Bot token
-API_ID = "15055049" # API ID
-API_HASH = "abe3f66fcd80c91e53009ba52c7b3a83" # API HASH
+API_ID = "" # API ID
+API_HASH = "" # API HASH
 WORKERS = 5
 
 DB_URI = "mongodb+srv://lucifer123:786780@cluster0.81jttdz.mongodb.net/?appName=Cluster0" # MongoDB URI
