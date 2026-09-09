@@ -14,7 +14,7 @@ SHORT_TUT = "https://t.me/ANIME_X_FLEX/19" # shortner tutorial link
 
 # Bot Configuration
 SESSION = "BotifyX-Botz"
-TOKEN = "8631420046:AAEh19lY1D-NRLoyccZefcMVa3jbKdEiCKM" # Bot token
+TOKEN = "" # Bot token
 API_ID = "15055049" # API ID
 API_HASH = "abe3f66fcd80c91e53009ba52c7b3a83" # API HASH
 WORKERS = 5
